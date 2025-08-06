@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday, My Love</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Dancing Script, Playfair Display -->
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:700|Playfair+Display:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Optional: Floating decor (hearts/stars) handled by JS -->
+
+  <!-- Background Music (hidden element, JS controlled to resume on interaction) -->
+  <audio id="background-music" loop preload="auto">
+    <source src="YOUR_BIRTHDAY_MUSIC.mp3" type="audio/mp3" />
+  </audio>
+
+  <main>
+    <!-- FIRST SLIDE: The Gift That Waited for You -->
+    <section class="section visible" id="section-0" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#f9e5f7 0%,#e7eafe 40%,#fceefe 100%);">
+      <!-- Optional floating stars/hearts -->
+      <div class="floating-decor"></div>
+
+      <!-- Floating heart/gift icon -->
+      <div class="gift-icon" aria-hidden="true">
+        <!-- Heart-shaped gift box SVG -->
+        <svg viewBox="0 0 86 80" width="86" height="80">
+          <path d="M43 78C19-2 86-8 43 24 0-8 67-2 43 78z" fill="#fbaccf"/>
+          <rect x="18" y="22" width="50" height="40" rx="15" fill="#ffe7f2"/>
+          <rect x="38" y="11" width="10" height="51" rx="4" fill="#de94da"/>
+          <circle cx="43" cy="23" r="9" fill="#fce2ef"/>
+        </svg>
+      </div>
+
+      <h1 class="main-header" style="font-family:'Dancing Script',cursive;font-size:2.3em;color:#ad6bca;margin-top:32px;margin-bottom:12px;text-shadow:0 3px 16px #f4eaff9a;">Happy Birthday, My Love 🎂</h1>
+      
+      <p class="slide-lead" style="font-size:1.18em;color:#805b86;font-family:'Playfair Display',serif;text-align:center;margin:0 0 28px 0;">
+        This isn't just a website.<br>
+        It's a little world I built for you —<br>
+        with memories, magic, and all my heart inside.
+      </p>
+
+      <div class="slide-whisper" style="animation:fadeinwhisper 2.4s .9s both;font-size:0.99em;color:#bc8ff0;letter-spacing:1px;margin-bottom:24px;font-style:italic;">
+        <span style="opacity:.8;">Turn up the volume. Let your smile lead the way.</span>
+      </div>
+
+      <button class="btn open-btn" id="openSurpriseBtn" style="font-size:1.2em;padding:17px 32px;margin-top:10px;background:linear-gradient(80deg,#ffe7f2,#e2eaff 80%);color:#ad6bca;border:none;border-radius:19px;box-shadow:0 2px 18px #eda6d877;transition:.17s;">
+        Open My Birthday Surprise 🎁
+      </button>
+      
+      <!-- Background music (autoplay, low volume, invisible player) -->
+      <audio id="welcome-music" src="YOUR_AMBIENT_BIRTHDAY_MUSIC.mp3" loop autoplay></audio>
+    </section>
+
+    <!-- SECOND SLIDE: A Letter From Me to You -->
+    <section class="section" id="section-1" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:#fff;">
+      <!-- Floating petals/paper cranes/feathers -->
+      <div class="floating-petals" aria-hidden="true"></div>
+
+      <!-- Envelope Illustration (click to open) -->
+      <div class="envelope-wrap" id="envelopeWrap" style="margin-bottom:34px;">
+        <!-- Closed Envelope SVG -->
+        <div class="envelope-svg closed" id="envelopeSvg" style="cursor:pointer;">
+          <!-- Envelope Body -->
+          <svg width="140" height="100" viewBox="0 0 140 100">
+            <!-- Back -->
+            <rect x="10" y="26" width="120" height="64" rx="9" fill="#f6e5f3" stroke="#e5d3e3" stroke-width="2"/>
+            <!-- Flap -->
+            <polygon points="10,26 70,3 130,26" fill="#efd0e4" stroke="#e5d3e3" stroke-width="2"/>
+            <!-- Seal Heart -->
+            <ellipse cx="70" cy="32" rx="12" ry="7" fill="#f8bed2"/>
+            <path d="M70 35
+              Q68 32,66 33
+              Q65 36,70 40
+              Q75 36,74 33
+              Q72 32,70 35" fill="#e184a7"/>
+          </svg>
+          <div class="envelope-tap" style="text-align:center;font-size:.96em;color:#b482c4;">Tap to open</div>
+        </div>
+        <!-- Open Envelope (hidden initially) -->
+        <div class="envelope-svg open" id="envelopeOpen" style="display:none;">
+          <svg width="140" height="100" viewBox="0 0 140 100">
+            <rect x="10" y="26" width="120" height="64" rx="9" fill="#f6e5f3" stroke="#e5d3e3" stroke-width="2"/>
+            <!-- Flap up -->
+            <polygon points="10,26 70,-12 130,26" fill="#efd0e4" stroke="#e5d3e3" stroke-width="2">
+              <animate attributeName="points" to="10,26 70,-40 130,26" dur="0.7s" fill="freeze"/>
+            </polygon>
+            <ellipse cx="70" cy="32" rx="12" ry="7" fill="#f8bed2"/>
+            <path d="M70 35
+              Q68 32,66 33
+              Q65 36,70 40
+              Q75 36,74 33
+              Q72 32,70 35" fill="#e184a7"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Love Letter (revealed after envelope opens) -->
+      <div class="love-letter fade-in" id="loveLetter" style="max-width:410px;width:90vw;background:rgba(255,255,255,0.82);border-radius:32px 32px 16px 32px;padding:34px 18px 27px 18px;box-shadow:0 6px 36px #e4d2ec55;display:none;border:1.6px solid #ecd9eb;font-family:'Dancing Script',cursive;font-size:1.16em; color:#8a517d;position:relative;">
+        <h2 style="font-family:'Dancing Script',cursive;font-size:1.25em;margin:0 0 16px;color:#a057a4;">To the Girl Who Owns My Heart,</h2>
+        <div class="letter-text">
+          <p>Today isn't just a celebration of your birth...<br>
+          It's a celebration of everything you are to me —<br>
+          your laughter, your kindness, your soul, your strength.<br>
+          Even miles apart, you light up my world every single day.<br>
+          I hope this little box brings a smile to your face,<br>
+          like the ones you bring to mine so effortlessly.
+          ALthough i wasnt able to make it the way i want T^T
+          </p>
+          <p>
+          This is just the beginning.<br>
+          Inside, you'll find pieces of me,<br>
+          wrapped up in music, messages, and memories.<br>
+          So take your time, unwrap it slow —<br>
+          each part was made with all my love.
+          </p>
+          <p style="text-align:right;">Forever Yours,<br><em>Mannu</em> ❤️</p>
+        </div>
+      </div>
+
+      <!-- Subtle rose or paper texture as bg overlay -->
+      <div class="bg-texture"></div>
+      <!-- Optional soft piano/violin ambient -->
+      <audio id="letter-music" src="YOUR_SOFT_AMBIENT_MUSIC.mp3" autoplay loop style="display:none;"></audio>
+    </section>
+
+    <!-- THIRD SLIDE: Press Play, Close Your Eyes -->
+    <section class="section" id="section-2" style="min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0;background:linear-gradient(135deg,#3f2a56 0%,#8b7ae6 50%,#2e445a 100%);">
+
+      <!-- Animated background aurora blobs -->
+      <div class="aurora-bg"></div>
+
+      <!-- Music notes/waveform container -->
+      <div class="floating-notes"></div>
+
+      <!-- Core content -->
+      <div class="audio-playlist-wrap" style="display:flex;flex-direction:row;gap:44px;max-width:860px;width:95vw;z-index:2;">
+        
+        <!-- LEFT: Voice note -->
+        <div class="voice-note-side" style="flex:1 1 310px;min-width:240px;max-width:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <h2 style="font-family:'Dancing Script',cursive;font-size:1.19em;color:#efd7f8;margin-bottom:10px;letter-spacing:.5px;text-align:center;">
+            My Voice, For When You Miss Me
+          </h2>
+          <div class="voice-player-wrap" style="background:rgba(38,25,49,0.46);border-radius:20px;padding:24px 16px;box-shadow:0 3px 24px #2513708a;backdrop-filter:blur(3px);position:relative;display:flex;flex-direction:column;align-items:center;width:100%">
+            <audio id="voiceNoteAudio" controls style="width:98%;">
+              <source src="your-voicenote.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+            <div class="voice-caption" style="color:#edeefa;font-family:'Poppins',sans-serif;font-size:.96em;margin-top:14px;opacity:.8;text-align:center;">
+              Because sometimes a message isn't enough.<br/>Press play when you're ready.
+            </div>
+            <!-- Optional waveform animation -->
+            <div class="simple-waveform" id="simpleWave"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Playlist -->
+        <div class="playlist-side" style="flex:1 1 340px;min-width:260px;max-width:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <h2 style="font-family:'Dancing Script',cursive;font-size:1.12em;margin-bottom:8px;color:#e2c6fa;text-align:center;">
+            You, in Every Song 🎧
+          </h2>
+          <div class="playlist-embed" style="background:rgba(38,25,49,0.28);border-radius:14px;padding:12px 4px 12px 4px;box-shadow:0 1px 10px #6e63b944;">
+            <iframe width="320" height="170" src="https://www.youtube.com/playlist?list=PLmW95HUEgia2Kim6QKco0JY92mNsYu3iI&autoplay=0"
+              title="Birthday Playlist" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
+              style="border-radius:10px;width:100%;max-width:320px;">
+            </iframe>
+          </div>
+          <div class="playlist-caption" style="margin-top:13px;color:#dfdeff;font-size:.96em;font-family:'Poppins',sans-serif;opacity:.95;text-align:center;">
+            This playlist isn't random — every song carries a piece of how I feel for you.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: The Universe The Moment You Arrived -->
+    <section class="section" id="section-3" style="min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#181d3b 0%,#3b2973 70%,#1e2637 100%);">
+      
+      <!-- Twinkling stars, floating zodiac, moon/constellations -->
+      <div class="star-bg"></div>
+      <div class="floating-moon" aria-hidden="true">
+        <svg width="44" height="44"><circle cx="22" cy="22" r="20" fill="#fcf4fe"/><circle cx="28" cy="20" r="17" fill="#c0bbe7" opacity=".28"/></svg>
+      </div>
+      <div class="zodiac-icon" style="position:absolute;right:7vw;top:10vh;font-size:2.6em;color:#e8d7fa;font-family:'Dancing Script',cursive;pointer-events:none;">♋</div>
+
+      <div class="star-map-wrap" style="background:rgba(31,20,56,0.67);padding:48px 16px 36px 16px;border-radius:39px;box-shadow:0 7px 32px #6e5fbe52;z-index:2;width:94vw;max-width:470px;display:flex;flex-direction:column;align-items:center;">
+        
+        <h2 style="color:#eadeff;font-family:'Dancing Script',cursive;font-size:1.29em;letter-spacing:.5px;text-align:center;margin-bottom:12px;text-shadow:0 0 18px #4b35a3cc;">When the Stars Welcomed You ✨</h2>
+        <img src="assets/starmap.png" alt="Star Map of 7th July 2004, 3:59 AM" style="max-width:290px;width:80vw;border-radius:50%;box-shadow:0 0 52px #f1e5ff36, 0 3px 21px #2b285d44;margin-bottom:18px;">
+        <p style="color:#ced6fc;font-size:.99em;text-align:center;margin:2px 0 24px 0;font-family:'Poppins',sans-serif;">
+          7th July 2004, 3:59 AM<br>Shanti Rai Hospital, Kankadbagh
+        </p>
+
+        <!-- Zodiac Insight -->
+        <div class="zodiac-insight" style="margin-bottom:19px;text-align:center;">
+          <h3 style="color:#fbeef7;margin-bottom:7px;font-size:1.08em;font-family:'Dancing Script',cursive;">Your Sign: Cancer ♋</h3>
+          <p style="color:#ede8fe;font-family:'Poppins',sans-serif;font-size:1em;">
+            Ruled by the moon, you were born with a heart full of empathy, love, and intuition.<br>
+            You feel deeply, love fiercely, and care endlessly — and that's what makes you so incredibly rare.
+          </p>
+        </div>
+
+        <!-- Birthday Year Vibes -->
+        <div class="birthday-vibes" style="margin-bottom:15px;text-align:center;">
+          <h4 style="color:#e8c2fc;font-family:'Dancing Script',cursive;margin-bottom:7px;margin-top:0;">What This Year Brings for You</h4>
+          <p style="color:#dbd1fc;font-family:'Poppins',sans-serif;font-size:.98em;line-height:1.73;">
+            ✨ New beginnings that feel like home<br>
+            🌙 Emotional growth and inner peace<br>
+            💫 Surprises that open your heart even wider<br>
+            🌸 Love that feels deeper, truer, and more magic than ever
+          </p>
+        </div>
+
+        <!-- REVEAL A STAR WISH BUTTON (optional) -->
+        <button class="btn star-wish-btn" id="revealWish" style="background:linear-gradient(90deg,#dbe3ff,#f5e4ff 80%);color:#6049a2;padding:12px 32px;margin-top:18px;border:none;border-radius:12px;font-size:1em;box-shadow:0 2px 12px #cecaff4a;">
+          Click to reveal a birthday wish from the stars ✨
+        </button>
+        <div id="starWishMsg" style="display:none;color:#ede8fe;margin-top:20px;font-size:1.09em;font-family:'Dancing Script',cursive;">"The universe whispered: May your heart always know its true home — and may every wish you dare to dream find its way back to you."</div>
+      </div>
+
+      <!-- Softly looped starry ambient sound, optional -->
+      <audio id="star-ambient" src="YOUR_STARRY_AMBIENCE.mp3" loop autoplay style="display:none;"></audio>
+    </section>
+
+    <!-- Slide 5: 21 Reasons I Love You -->
+    <section class="flip-section" style="background:linear-gradient(120deg,#fff0f5 60%, #f7e6ef 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:36px 0;">
+      <!-- Optional: floating hearts (JS) -->
+      <div class="floating-hearts" aria-hidden="true"></div>
+      <h2 style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:#c71585;text-shadow:0 2px 16px #eeccee66;">21 Reasons I Love You ❤️</h2>
+      <div class="flip-grid">
+        <!-- 21 flip cards -->
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">1</div>
+          <div class="flip-back">The way your eyes sparkle when you talk about what you love</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">2</div>
+          <div class="flip-back">Your kindness to strangers, even when no one's watching</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">3</div>
+          <div class="flip-back">How you hold me tight when I need it most</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">4</div>
+          <div class="flip-back">The sound of your sleepy voice in the morning</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">5</div>
+          <div class="flip-back">How you always listen, even to my smallest worries</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">6</div>
+          <div class="flip-back">That laugh you do when you think no one's watching</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">7</div>
+          <div class="flip-back">Your random acts of kindness, every single day</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">8</div>
+          <div class="flip-back">How you say my name and it just sounds like home</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">9</div>
+          <div class="flip-back">Your patience with my quirks</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">10</div>
+          <div class="flip-back">How you make the most boring things feel fun when we're together</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">11</div>
+          <div class="flip-back">Your fierce loyalty</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">12</div>
+          <div class="flip-back">The way your hugs make everything okay</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">13</div>
+          <div class="flip-back">The way you get lost dancing to your favorite songs</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">14</div>
+          <div class="flip-back">How deeply you care about the people you love</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">15</div>
+          <div class="flip-back">Your endless support, even when I doubt myself</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">16</div>
+          <div class="flip-back">The silly faces you make just to make me laugh</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">17</div>
+          <div class="flip-back">Your optimism, even on hard days</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">18</div>
+          <div class="flip-back">How you inspire me to be my best self</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">19</div>
+          <div class="flip-back">How your passion lights up a room</div>
+        </div></div>
+
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">20</div>
+          <div class="flip-back">That you "get" my weirdness like no one else</div>
+        </div></div>
+      
+        <div class="flip-card"><div class="flip-inner">
+          <div class="flip-front">21</div>
+          <div class="flip-back">Because loving you feels like the easiest, truest thing in the world</div>
+        </div></div>
+      </div>
+      <!-- Optional: Reveal All toggle -->
+      <button class="btn reveal-btn" id="revealAllBtn" style="margin-top:32px;font-size:1.08em;padding:11px 32px;">Reveal All</button>
+      <!-- Optional: Background music (looped, gentle, fades in) -->
+      <audio id="flipMusic" src="YOUR_SOFT_TRACK.mp3" loop></audio>
+    </section>
+
+    <!-- Fonts for beautiful style -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+    <section class="affirmation-section" id="section-5" style="min-height:100vh; display:flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden;">
+      <h2>Your Digital Jar of Affirmations 🫙</h2>
+      
+      <!-- Glass jar -->
+      <div class="jar-container" aria-hidden="true">
+        <svg viewBox="0 0 120 150" width="120" height="150" class="glass-jar" aria-hidden="true" role="img" >
+          <defs>
+            <linearGradient id="glassGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ecf0f8" stop-opacity="0.6" />
+              <stop offset="100%" stop-color="#b7c5dd" stop-opacity="0.7" />
+            </linearGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB" >
+              <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#d291bc" flood-opacity="0.8" />
+              <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#e5a4c2" flood-opacity="0.6" />
+            </filter>
+          </defs>
+          <!-- Jar shape -->
+          <rect x="15" y="10" width="90" height="130" rx="32" ry="35" fill="url(#glassGradient)" stroke="#b693c1" stroke-width="3" filter="url(#glow)"/>
+          <!-- Jar neck -->
+          <rect x="45" y="0" width="30" height="25" rx="10" ry="15" fill="url(#glassGradient)" stroke="#b693c1" stroke-width="2" filter="url(#glow)"/>
+          <!-- Highlights -->
+          <path d="M40 30 C42 10, 80 10, 82 30" stroke="#fff" stroke-width="2" fill="none" opacity="0.2" />
+          <path d="M25 35 C50 5, 85 20, 100 75" stroke="#ffd6e8" stroke-width="2" fill="none" opacity="0.15" />
+        </svg>
+      </div>
+
+      <!-- Affirmation text box -->
+      <p id="affirmation" class="affirmation-text" aria-live="polite" aria-atomic="true" role="region">
+        Click below to pick an affirmation 💌
+      </p>
+
+      <!-- Buttons wrapper -->
+      <div class="button-row">
+        <button class="btn pick-btn" aria-label="Pick a random affirmation" onclick="showAffirmation()">Pick One</button>
+        <button class="btn copy-btn" aria-label="Copy affirmation text" onclick="copyAffirmation()">Copy</button>
+        <button class="btn download-btn" aria-label="Download affirmation as text file" onclick="downloadAffirmation()">Download</button>
+      </div>
+
+      <!-- Floating notes container (animated by JS) -->
+      <div class="floating-notes" aria-hidden="true"></div>
+    </section>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Poppins&display=swap" rel="stylesheet" />
+
+    <!-- Secret Mystery Box with Passcode Protection -->
+    <section class="mystery-box-section" id="section-6" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#f8f0ff 0%,#ffe8f4 50%,#fff5f0 100%);">
+
+      <!-- Passcode prompt container -->
+      <div class="passcode-container" aria-live="polite" aria-atomic="true" style="z-index:3;">
+        <h3 style="font-family:'Playfair Display',serif;color:#8b5a9f;text-align:center;margin-bottom:12px;">
+          Please enter your secret passcode to unlock the box
+        </h3>
+        <!-- Flip card for passcode reveal -->
+        <div class="passcode-card flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Tap to reveal passcode">
+          <div class="flip-inner">
+            <div class="flip-front" style="font-family:'Playfair Display', serif; font-size:1.5rem; color:#a06bb8; background:#f4e6ff; padding:30px 22px; border-radius:16px; box-shadow: 0 6px 18px #d2a5e7bb; cursor:pointer;">
+              Tap to reveal passcode
+            </div>
+            <div class="flip-back" style="background:#fff0f5; color:#8b3d78; padding: 30px 22px; font-weight:700; border-radius:16px; box-shadow: 0 6px 18px #d2a5e7bb; position: relative; user-select: text;">
+              <span id="passcodeText">LOVE21</span>
+              <button type="button" class="btn copy-passcode" aria-label="Copy passcode" title="Copy passcode" style="position:absolute; top:8px; right:10px; font-size:1.3rem; border:none; background:transparent; color:#9b6bb7; cursor:pointer;">📋</button>
+            </div>
+          </div>
+        </div>
+
+        <label for="passcodeInput" style="display:block; margin-top:24px; font-family:'Poppins', sans-serif; color:#6a4586; font-size:1rem; text-align:center;">
+          Enter passcode here:
+        </label>
+        <input id="passcodeInput" type="text" autocomplete="off" spellcheck="false" style="font-family:'Poppins',sans-serif; font-size:1.1rem; padding: 10px 14px; border-radius: 10px; border: 2px solid #d291bc; width: 180px; margin:8px auto 18px; display: block; text-align:center;" aria-describedby="passcodeHelp" aria-required="true" />
+        <div id="passcodeHelp" style="color:#d15e8c; font-family:'Poppins', sans-serif; font-size:0.9rem; height:1.1em; min-height:1.1em;text-align:center;" role="alert" aria-live="assertive"></div>
+        <button id="submitPasscodeBtn" class="btn" type="button" aria-label="Submit passcode" style="margin: 0 auto 26px auto;">Unlock the Box</button>
+      </div>
+
+      <!-- Gift Box Container (hidden initially) -->
+      <div class="gift-box-container" style="margin-bottom:35px;position:relative;z-index:2; display:none;" id="giftBoxContainer">
+        <div class="gift-box" id="giftBox" style="cursor:pointer;transition:transform 0.3s ease;">
+          <!-- Closed Box SVG -->
+          <svg class="box-closed" width="140" height="120" viewBox="0 0 140 120" style="filter:drop-shadow(0 8px 25px #d4a5e877);">
+            <!-- Box body -->
+            <rect x="20" y="40" width="100" height="70" rx="8" fill="#f4e6ff" stroke="#c897d8" stroke-width="3"/>
+            <!-- Box lid -->
+            <rect x="15" y="35" width="110" height="20" rx="6" fill="#e8d0f5" stroke="#c897d8" stroke-width="3"/>
+            <!-- Ribbon vertical -->
+            <rect x="65" y="20" width="10" height="90" fill="#ff8fab"/>
+            <!-- Ribbon horizontal -->
+            <rect x="15" y="60" width="110" height="10" fill="#ff8fab"/>
+            <!-- Bow -->
+            <ellipse cx="70" cy="30" rx="15" ry="8" fill="#ff6b8a"/>
+            <ellipse cx="70" cy="30" rx="8" ry="5" fill="#ff8fab"/>
+            <!-- Sparkles around box -->
+            <circle cx="35" cy="25" r="2" fill="#ffd700" opacity="0.8"/>
+            <circle cx="105" cy="30" r="1.5" fill="#ffd700" opacity="0.6"/>
+            <circle cx="125" cy="50" r="2" fill="#ff8fab" opacity="0.7"/>
+          </svg>
+          
+          <!-- Open Box SVG (hidden initially) -->
+          <svg class="box-open" width="140" height="120" viewBox="0 0 140 120" style="display:none;filter:drop-shadow(0 8px 25px #d4a5e877);">
+            <!-- Box body -->
+            <rect x="20" y="40" width="100" height="70" rx="8" fill="#f4e6ff" stroke="#c897d8" stroke-width="3"/>
+            <!-- Box lid (opened, tilted back) -->
+            <rect x="15" y="15" width="110" height="20" rx="6" fill="#e8d0f5" stroke="#c897d8" stroke-width="3" transform="rotate(-25 70 25)"/>
+            <!-- Ribbon pieces -->
+            <rect x="65" y="40" width="10" height="70" fill="#ff8fab"/>
+            <rect x="15" y="60" width="110" height="10" fill="#ff8fab"/>
+            <!-- Magic sparkles emerging -->
+            <circle cx="70" cy="35" r="3" fill="#ffd700" opacity="0.9">
+              <animate attributeName="opacity" values="0.9;0.3;0.9" dur="1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="60" cy="25" r="2" fill="#ff8fab" opacity="0.8">
+              <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="80" cy="30" r="2.5" fill="#c897d8" opacity="0.7">
+              <animate attributeName="opacity" values="0.7;0.1;0.7" dur="0.8s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <p style="font-family:'Poppins',sans-serif;font-size:0.9em;color:#b478c4;margin-top:12px;text-align:center;">Tap the box! ✨</p>
+      </div>
+
+      <!-- Gift Cards (hidden initially) -->
+      <div class="gift-cards-reveal" id="giftCards" style="display:none;max-width:600px;width:90vw;">
+        <div class="cards-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;margin-bottom:25px;">
+
+          <!-- Myntra Card -->
+          <div class="gift-card flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card for Myntra Voucher description">
+            <div class="flip-inner">
+              <div class="flip-front" style="background:linear-gradient(135deg,#ff6b8a,#ff8fab);color:#fff;padding:20px;border-radius:16px;text-align:center;box-shadow:0 6px 20px #ff6b8a44;font-size:2.5em;display:flex;align-items:center;justify-content:center;user-select:none;cursor:pointer;">👗</div>
+              <div class="flip-back" style="background:#fff0f5;color:#8b3d78;padding:20px;border-radius:16px;text-align:center;box-shadow:0 6px 20px #d291bc44;cursor:pointer;font-family:'Poppins',sans-serif;font-size:1em;font-style:italic;display:flex;align-items:center;justify-content:center;">
+                Myntra Voucher<br><small>Fashion & Style Treats</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zomato Card -->
+          <div class="gift-card flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card for Zomato Treat description">
+            <div class="flip-inner">
+              <div class="flip-front" style="background:linear-gradient(135deg,#e23744,#ff6b6b);color:#fff;padding:20px;border-radius:16px;text-align:center;box-shadow:0 6px 20px #e2374444;font-size:2.5em;display:flex;align-items:center;justify-content:center;user-select:none;cursor:pointer;">🍕</div>
+              <div class="flip-back" style="background:#fff0f5;color:#8b3d78;padding:20px;border-radius:16px;text-align:center;box-shadow:0 6px 20px #d291bc44;cursor:pointer;font-family:'Poppins',sans-serif;font-size:1em;font-style:italic;display:flex;align-items:center;justify-content:center;">
+                Zomato Treat<br><small>Delicious Food Delivery</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blinkit Card -->
+          <div class="gift-card flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card for Blinkit Credits description">
+            <div class="flip-inner">
+              <div class="flip-front" style="background:linear-gradient(135deg,#4CAF50,#66BB6A);color:#fff;padding:20px;border-radius:16px;text-align:center;box-shadow:0 6px 20px #4CAF5044;font-size:2.5em;display:flex;align-items:center;justify-content:center;user-select:none;cursor:pointer;">🛒</div>
+              <div class="flip-back" style="background:#fff0f5;color:#8b3d78;padding:20px;border-radius:16px;text-align:center;box-shadow:0 6px 20px #d291bc44;cursor:pointer;font-family:'Poppins',sans-serif;font-size:1em;font-style:italic;display:flex;align-items:center;justify-content:center;">
+                Blinkit Credits<br><small>Quick Grocery Delivery</small>
+            
+             </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footnote -->
+        <p style="font-family:'Poppins',sans-serif;font-size:0.85em;color:#9b6bb7;text-align:center;font-style:italic;margin:0 0 15px 0;">
+          Codes will be shared with you privately 🎁
+        </p>
+      </div>
+
+    </section>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Slide 8: The Final Note — "You Are My Universe" -->
+    <section class="closing-note" id="section-8" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+      <!-- Floating sparkles/stars -->
+      <div class="closing-sparkles" aria-hidden="true"></div>
+
+      <h2>💫 And that's the end... or maybe just the beginning?</h2>
+
+      <p>
+        Thank you for being born.<br>
+        Thank you for being <em>you.</em><br>
+        Every part of this box was a piece of my heart — crafted for the girl who makes life magic.
+      </p>
+      <p class="love-line">
+        I love you more than words can carry.<br>
+        Here's to your most beautiful year yet.<br>
+        <strong>Happy 21st Birthday 💖</strong>
+      </p>
+      <p class="sign-off">
+        Forever yours,<br>
+        <em>Mannu</em>
+      </p>
+
+      <button class="btn closing-replay" id="replayBtn" style="margin-top:36px;">Replay Box</button>
+
+      <!-- Optional: Soft background ambient music -->
+      <audio id="finalMusic" src="YOUR_AMBIENT_FINAL.mp3" loop autoplay style="display:none;"></audio>
+    </section>
+
+    <!-- Google Fonts for style (Playfair & Dancing Script) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>
